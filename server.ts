@@ -26,7 +26,38 @@ async function startServer() {
 
   app.get("/api/soundcloud/auth", (req, res) => {
     if (!SC_CLIENT_ID) {
-      return res.status(500).json({ error: "Missing VITE_SOUNDCLOUD_CLIENT_ID in backend environment variables." });
+      return res.status(500).send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Configuración de Vercel Incompleta</title>
+          <style>
+            body { font-family: system-ui, sans-serif; background: #09090b; color: #fff; display: flex; align-items: center; justify-center; height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+            .card { background: #18181b; padding: 2rem; border-radius: 12px; max-width: 600px; margin: 0 auto; text-align: left; border: 1px solid #27272a; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+            h2 { color: #facc15; margin-top: 0; }
+            code { background: #27272a; padding: 2px 6px; border-radius: 4px; color: #a1a1aa; }
+            ol { color: #d4d4d8; line-height: 1.6; }
+            li { margin-bottom: 8px; }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <h2>⚠️ Falta Configuración en Vercel o Entorno</h2>
+            <p>La variable de entorno <code>VITE_SOUNDCLOUD_CLIENT_ID</code> no está configurada.</p>
+            <p>Para arreglar esto y que el login funcione:</p>
+            <ol>
+              <li>Ve al panel de tu proyecto en <b>Vercel</b> (o <b>AI Studio</b>).</li>
+              <li>Ve a <b>Settings</b> &rarr; <b>Environment Variables</b>.</li>
+              <li>Añade <code>VITE_SOUNDCLOUD_CLIENT_ID</code> con tu Client ID de SoundCloud.</li>
+              <li>Añade <code>SOUNDCLOUD_CLIENT_SECRET</code> con tu Client Secret de SoundCloud.</li>
+              <li>Ve a la pestaña <b>Deployments</b>, haz clic en los 3 puntos de tu último despliegue y selecciona <b>Redeploy</b> (si usas Vercel).</li>
+            </ol>
+            <p style="color: #a1a1aa; font-size: 0.9em; margin-top: 24px;">Una vez hecho esto, vuelve a intentar conectarte.</p>
+          </div>
+        </body>
+      </html>
+    `);
     }
     
     // The redirect URI MUST EXACTLY MATCH what's registered in the SoundCloud portal.
