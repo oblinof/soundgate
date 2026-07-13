@@ -1,0 +1,6 @@
+{
+  "name": "SoundCloud Download Gate",
+  "description": "A download gate that verifies SoundCloud likes, comments, and reposts before unlocking a file.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

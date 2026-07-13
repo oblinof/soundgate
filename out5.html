@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SoundCloud – Listen to free music and podcasts on SoundCloud</title>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#333" />
+    
+    <link rel="stylesheet" href="https://secure.sndcdn.com/6-957c11b7942b5340d851.css" />
+    
+    <style>
+      .dark {
+        background-color: var(--background-dark-color);
+      }
+    </style>
+  </head>
+  <body>
+  <script>
+      window.__sc_features = {"auth_ui_datadome_killswitch":false,"api_auth_turn_recaptcha_off":false,"auth_ui_show_email_consent":false,"auth_ui_magic_link_sign_in":true};
+      window.__sc_country_code = "US";
+      window.__sc_statsig = null;
+  </script>
+    <script>
+      (function () {
+        function getSearchParam(name) {
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(
+            window.location.search
+          );
+          if (results == null) {
+            return null;
+          } else {
+            return decodeURI(results[1]) || '';
+          }
+        }
+
+        if (
+          window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches &&
+          getSearchParam('theme') !== null &&
+          getSearchParam('theme') !== 'light'
+        ) {
+          document.body.classList.add('dark');
+        }
+
+        if (getSearchParam('locale') === 'ar') {
+          document.querySelector('html').dir = 'rtl'
+        }
+      })();
+    </script>
+
+    <div id="app"></div>
+
+      
+    <script crossorigin src="https://secure.sndcdn.com/web_auth-6ae6f1958abdacb5af55.js"></script>
+    
+    <script crossorigin src="https://secure.sndcdn.com/vendor-717e40857f0cb61d3783.js"></script>
+    
+  </body>
+</html>
