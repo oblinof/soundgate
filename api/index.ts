@@ -17,10 +17,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // SoundCloud API configuration
-const SC_CLIENT_ID = process.env.VITE_SOUNDCLOUD_CLIENT_ID || process.env.SOUNDCLOUD_CLIENT_ID;
 
 app.get("/api/soundcloud/auth", (req, res) => {
+  const SC_CLIENT_ID = process.env.VITE_SOUNDCLOUD_CLIENT_ID || process.env.SOUNDCLOUD_CLIENT_ID;
   if (!SC_CLIENT_ID) {
+    const envKeys = Object.keys(process.env).filter(k => k.includes('SOUNDCLOUD')).join(', ');
     return res.status(500).send(`
       <!DOCTYPE html>
       <html>
@@ -40,6 +41,7 @@ app.get("/api/soundcloud/auth", (req, res) => {
           <div class="card">
             <h2>⚠️ Falta Configuración en Vercel</h2>
             <p>La variable de entorno <code>VITE_SOUNDCLOUD_CLIENT_ID</code> no está configurada en tu proyecto de Vercel.</p>
+            <p>Variables detectadas relacionadas: <code>${envKeys || 'Ninguna'}</code></p>
             <p>Para arreglar esto y que el login funcione:</p>
             <ol>
               <li>Ve al panel de tu proyecto en <b>Vercel</b>.</li>
@@ -78,6 +80,7 @@ app.get("/api/soundcloud/auth", (req, res) => {
 });
 
 app.get("/api/soundcloud/callback", async (req, res) => {
+  const SC_CLIENT_ID = process.env.VITE_SOUNDCLOUD_CLIENT_ID || process.env.SOUNDCLOUD_CLIENT_ID;
   const code = req.query.code;
   const state = req.query.state;
   const errorParam = req.query.error;
